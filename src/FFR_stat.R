@@ -27,31 +27,32 @@ FFR.data <- FFR.data.tmp %>%
   mutate(diagnosis = factor(FFR_score > 0.8))
 # Make ROC use FFR_score------------
 FFR.CTA.roc <- roc(FFR.data$diagnosis,
-                   FFR.data$FFRCTA,
-                   plot = TRUE,
-                   print.auc = TRUE)
+                   FFR.data$FFRCTA
+                   )
 QCA.roc <- roc(FFR.data$diagnosis,
-               FFR.data$QCA,
-               plot = TRUE,
-               add = TRUE)
+               FFR.data$QCA)
 visual.roc <- roc(FFR.data$diagnosis,
-                  FFR.data$visual,
-                  plot = TRUE,
-                  add = TRUE)
+                  FFR.data$visual)
 # plot ROC curve
 FFR.CTA <- data.frame(group='CTA-FFR',specificities = rev(1 - FFR.CTA.roc$specificities), sensitivities = rev(FFR.CTA.roc$sensitivities))
 QCA <- data.frame(group='QCA',specificities = rev(1 - QCA.roc$specificities), sensitivities = rev(QCA.roc$sensitivities))
 visual <- data.frame(group='CCTA',specificities = rev(1 - visual.roc$specificities), sensitivities = rev(visual.roc$sensitivities))
 final.data <- rbind(FFR.CTA, QCA, visual)
-ggplot(final.data,aes(x = specificities, y = sensitivities, colour=group)) +
+f<-ggplot(final.data,aes(x = specificities, y = sensitivities, colour=group)) +
   geom_line(aes(linetype=group),size=1) + 
   geom_abline(intercept = 0, slope = 1) +
   xlab('1 - Specificity') + 
   ylab('Sensitivity') + 
   xlim(c(0,1)) +
   ylim(c(0,1)) + 
-  theme(axis.title = element_text(family = 'Arial', size = 12, face = 'bold'),
-        axis.text = element_text(family = 'Arial', size = 12, face = 'bold'),
+  theme(axis.title = element_text(family = 'Arial', size = 16, face = 'bold'),
+        axis.text = element_text(family = 'Arial', size = 16, face = 'bold'),
+        panel.grid.major = element_blank(), 
+        panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"),
+        legend.text = element_text(size=22),
+        legend.key = element_blank(),
+        legend.key.size = unit(0.5, "in"),
         legend.title = element_blank()
         ) 
 # Bland-Altman plot between FFR golden standard and FFR-CTA
@@ -67,8 +68,9 @@ g <- ggplot(ba, aes(mean,diff)) +
   xlim(c(0.5,1)) + 
   scale_y_continuous(limits = c(-0.15, 0.15), breaks = c( -0.15, -0.1, -0.05, 0, 0.05, 0.1, 0.15)) + 
   ylab('FFR - CT-FFR') + 
-  theme(axis.text = element_text(family = 'Arial', size=12, face = 'bold'),
-        axis.title = element_text(family='Arial', size = 14))
+  theme(axis.text = element_text(family = 'Arial', size=16, face = 'bold'),
+        axis.title = element_text(family='Arial', size = 16),panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        panel.background = element_blank(), axis.line = element_line(colour = "black"))
 library(ggExtra)
 ggMarginal(g, type = 'histogram',bins=15)
 
