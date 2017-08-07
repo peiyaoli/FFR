@@ -1,0 +1,45 @@
+library(epiR)
+
+per.vessel.CCTA <-  as.table(matrix(c(15,20,3,23), nrow = 2, byrow = TRUE))
+per.vessel.FFR <-  as.table(matrix(c(19,5,1,36), nrow = 2, byrow = TRUE))
+per.vessel.QCA <-  as.table(matrix(c(15,17,2,27), nrow = 2, byrow = TRUE))
+
+per.patient.CCTA <-  as.table(matrix(c(13,16,1,10), nrow = 2, byrow = TRUE))
+per.patient.FFR <-  as.table(matrix(c(14,4,1,21), nrow = 2, byrow = TRUE))
+per.patient.QCA <-  as.table(matrix(c(10,6,4,20), nrow = 2, byrow = TRUE))
+
+colnames(per.vessel.CCTA) <- c("Dis+","Dis-")
+rownames(per.vessel.CCTA) <- c("Test+","Test-")
+per.vessel.CCTA.rval <- epi.tests(per.vessel.CCTA, conf.level = 0.95)
+print(per.vessel.CCTA.rval)
+summary(per.vessel.CCTA.rval)
+
+colnames(per.vessel.FFR) <- c("Dis+","Dis-")
+rownames(per.vessel.FFR) <- c("Test+","Test-")
+per.vessel.FFR.rval <- epi.tests(per.vessel.FFR, conf.level = 0.95)
+print(per.vessel.FFR.rval)
+summary(per.vessel.FFR.rval)
+
+colnames(per.vessel.QCA) <- c("Dis+","Dis-")
+rownames(per.vessel.QCA) <- c("Test+","Test-")
+per.vessel.QCA.rval <- epi.tests(per.vessel.QCA, conf.level = 0.95)
+print(per.vessel.QCA.rval)
+summary(per.vessel.QCA.rval)
+
+colnames(per.patient.CCTA) <- c("Dis+","Dis-")
+rownames(per.patient.CCTA) <- c("Test+","Test-")
+per.patient.CCTA.rval <- epi.tests(per.patient.CCTA, conf.level = 0.95)
+print(per.patient.CCTA.rval)
+summary(per.patient.CCTA.rval)
+
+colnames(per.patient.FFR) <- c("Dis+","Dis-")
+rownames(per.patient.FFR) <- c("Test+","Test-")
+per.patient.FFR.rval <- epi.tests(per.patient.FFR, conf.level = 0.95)
+print(per.patient.FFR.rval)
+summary(per.patient.FFR.rval)
+
+colnames(per.patient.QCA) <- c("Dis+","Dis-")
+rownames(per.patient.QCA) <- c("Test+","Test-")
+per.patient.QCA.rval <- epi.tests(per.patient.QCA, conf.level = 0.95)
+print(per.patient.QCA.rval)
+summary(per.patient.QCA.rval)
